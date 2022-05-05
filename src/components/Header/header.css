@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #000000;
+  display: block;
+  transition: .4s all ease;
+  font-weight: 500;
+}
+
+.header__link:hover{
+  opacity: .6;
+  cursor: pointer;
+}
+
+.header__navs {
+  display: flex;
+  align-items: center;
+}
+
+.header__link_type_signup {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__link_type_signin {
+  margin-left: 30px;
+  background-color: #2BE080;
+  border-radius: 3px;
+  padding: 8px 20px;
+  font-size: 12px;
+  line-height: 16px;
+}
