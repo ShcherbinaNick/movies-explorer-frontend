@@ -1,0 +1,33 @@
+.nav-tab__list {
+  list-style-type: none;
+  margin: 151px 0 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-tab__list-item {
+  margin-right: 10px;
+}
+
+.nav-tab__list-item:last-of-type {
+  margin-right: 0;
+}
+
+.nav-tab__link {
+  text-decoration: none;
+  color: #000000;
+  background-color: #E8E8E8;
+  display: block;
+  padding: 10px 17px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: .4s all ease;
+}
+
+.nav-tab__link:hover {
+  opacity: .6;
+  cursor: pointer;
+}
