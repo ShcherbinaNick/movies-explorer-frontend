@@ -3,10 +3,11 @@
   font-weight: 400;
   min-width: 320px;
   min-height: 100vh;
+  max-width: 1280px;
   margin: 0 auto;
   color: #000000;
 }
 
-*  {
+/* *  {
   outline: 1px solid red;
-}
+} */
