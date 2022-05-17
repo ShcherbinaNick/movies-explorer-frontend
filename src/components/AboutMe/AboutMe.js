@@ -1,3 +1,4 @@
+import React from 'react';
 import myPhoto from '../../images/myPhoto.jpg'
 import Portfolio from '../Portfolio/Portfolio';
 

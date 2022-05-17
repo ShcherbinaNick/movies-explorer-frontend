@@ -16,3 +16,19 @@
 @import url(./components/Portfolio/Portfolio.css);
 
 @import url(./components/Footer/Footer.css);
+
+@import url(./components/Register/Register.css);
+
+@import url(./components/Login/Login.css);
+
+@import url(./components/NotFound/NotFound.css);
+
+@import url(./components/SearchForm/SearchForm.css);
+
+@import url(./components/FilterCheckbox/FilterCheckbox.css);
+
+@import url(./components/MoviesCardList/MoviesCardList.css);
+
+@import url(./components/MoviesCard/MoviesCard.css);
+
+@import url(./components/Profile/Profile.css);
