@@ -2,11 +2,11 @@ import React from "react";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies() {
+function SavedMovies(props) {
   return(
     <section className="saved-movies">
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList moviesCard={props.moviesCard} />
     </section>
   )
 }

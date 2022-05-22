@@ -8,7 +8,7 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   React.useEffect(() => {
-    if(location.pathname === '/movies' || location.pathname === '/saved-movies'){
+    if (location.pathname === '/movies' || location.pathname === '/saved-movies') {
       setIsLoggedIn(true)
     }
   }, []);
@@ -27,9 +27,9 @@ function Header() {
         )}
         { isLoggedIn && (
           <>
-            <Link to="/movies" className="header__link header__link_type_signup">Фильмы</Link>
-            <Link to="/saved-movies" className="header__link header__link_type_signin">Сохранённые фильмы</Link>
-            <Link to="/profile" className="header__link header__link_type_signin">Аккаунт</Link>
+            <Link to="/movies" className="header__link header__link_type_movies">Фильмы</Link>
+            <Link to="/saved-movies" className="header__link header__link_type_saved-movies">Сохранённые фильмы</Link>
+            <Link to="/profile" className="header__link header__link_type_profile">Аккаунт</Link>
           </>
         )}
       </nav>

@@ -36,3 +36,26 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+.header__link_type_movies {
+  margin-right: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.header__link_type_saved-movies {
+  margin-right: 50px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.header__link_type_profile {
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+}

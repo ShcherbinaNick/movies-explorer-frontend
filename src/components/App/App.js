@@ -20,52 +20,65 @@ const moviesCard = [
     id: 1,
     duration: '1ч 47м',
     image: demoImg1,
-    nameRU: '33 слова о дизайне'
+    nameRU: '33 слова о дизайне',
+    isSaved: true
   },
   {
     id: 2,
     duration: '1ч 3м',
     image: demoImg2,
-    nameRU: 'Киноальманах «100 лет дизайна»'
+    nameRU: 'Киноальманах «100 лет дизайна»',
+    isSaved: false
   },
   {
     id: 3,
     duration: '1ч 42м',
     image: demoImg3,
-    nameRU: 'В погоне за Бенкси'
+    nameRU: 'В погоне за Бенкси',
+    isSaved: false
   },
   {
     id: 4,
     duration: '1ч 21м',
     image: demoImg4,
-    nameRU: 'Баския: Взрыв реальности'
+    nameRU: 'Баския: Взрыв реальности',
+    isSaved: false
   }
 ];
 
 function App() {
   return (
     <div className="app">
-      <Header/>
+      <Route exact path={['/', '/movies', '/saved-movies', '/profile']} >
+        <Header/>
+      </Route>
       <Switch>
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
           <Register />
         </Route>
-        <Route path="/signin">
+        <Route exact path="/signin">
           <Login />
         </Route>
-        <Route path="/movies">
+        <Route exact path="/movies">
           <Movies moviesCard={moviesCard} />
         </Route>
-        <Route path="/saved-movies">
-          <SavedMovies />
+        <Route exact path="/saved-movies">
+          <SavedMovies moviesCard={moviesCard} />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
-      <Footer/>
-      {/* <NotFound /> */}
-      {/* <Profile /> */}
+      <Route exact path={['/', '/movies', '/saved-movies']} >
+        <Footer/>
+      </Route>
+
     </div>
   );
 }
