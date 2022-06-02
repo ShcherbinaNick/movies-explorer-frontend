@@ -4,7 +4,7 @@ import Portfolio from '../Portfolio/Portfolio';
 
 function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me" id="about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__info">
         <div className="about-me__text">
@@ -13,7 +13,7 @@ function AboutMe() {
               <h3 className="about-me__subtitle">Никита</h3>
             </li>
             <li className="about-me__profession">
-              <h4 className="about-me__profession-title">Фронтенд-разработчик, 26 лет</h4>
+              <h4 className="about-me__profession-title">Фронтенд-разработчик, 27 лет</h4>
             </li>
             <li className="about-me__desc">
               <p className="about-me__desc-text">

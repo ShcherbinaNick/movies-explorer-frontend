@@ -24,6 +24,7 @@
   font-size: 13px;
   line-height: 16px;
   max-width: 90%;
+  text-align: left;
 }
 
 .movies-card__button {
@@ -61,4 +62,31 @@
   font-size: 11px;
   line-height: 13px;
   color: #A0A0A0;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-card__text {
+    margin: 8px 14px 0;
+  }
+
+  .movies-card__length {
+    margin: 15px 14px 14px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movies-card__text {
+    margin: 7px 14px 0;
+  }
+
+  .movies-card__name {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .movies-card__length {
+    margin: 6px 14px 14px;
+    font-size: 10px;
+    line-height: 12px;
+  }
 }

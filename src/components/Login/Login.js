@@ -5,7 +5,9 @@ import logo from '../../images/logo.svg';
 function Login() {
   return(
     <section className="login">
-      <img className="login__logo" src={logo} alt="зелёный кружок" />
+      <Link to="/">
+        <img className="login__logo" src={logo} alt="зелёный кружок" />
+      </Link>
       <h1 className="login__title">Рады видеть!</h1>
       <form className="login__form">
         <fieldset className="login__fieldset">

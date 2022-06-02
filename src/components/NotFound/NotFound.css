@@ -14,7 +14,7 @@
 }
 
 .not-found__subtitle {
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
@@ -33,4 +33,36 @@
   line-height: 17px;
   cursor: pointer;
   transition: .4s all ease;
+}
+
+@media screen and (max-width: 768px) {
+  .not-found {
+    margin: 408px auto 222px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .not-found {
+    margin: 329px 10px 30px;
+  }
+
+  .not-found__title {
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .not-found__subtitle {
+    margin: 10px 0 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .not-found__button {
+    margin: 284px auto 0;
+    padding: 0;
+    width: 100%;
+    max-width: 36px;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

@@ -5,7 +5,9 @@ import logo from '../../images/logo.svg'
 function Register() {
   return(
     <section className="register">
-      <img className="register__logo" src={logo} alt="зелёный кружок" />
+      <Link to="/">
+        <img src={logo} alt="зелёный кружок" className="register__logo" />
+      </Link>
       <h1 className="register__title">Добро пожаловать!</h1>
       <form className="register__form">
         <fieldset className="register__fieldset">
@@ -21,7 +23,7 @@ function Register() {
         <fieldset className="register__fieldset">
           <p className="register__input-name">Пароль</p>
           <input className="register__input register__input_type_password" id="register-password" type="password" name="register-password" placeholder="Введите ваш пароль здесь" required />
-          <span className="register__input-error">Что-то пошло не так...</span>
+          <span className="register__input-error">Что-то пошло не так...</span> {/* <-- В ТЗ не указано, нужно ли перекрашивать или выводить на этапе верстки */}
         </fieldset>
       </form>
       <button className="register__button" type="submit">Зарегистрироваться</button>

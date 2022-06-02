@@ -21,6 +21,10 @@
   line-height: 20px;
 }
 
+.search-form__input:focus {
+  outline: none;
+}
+
 .search-form__button {
   max-width: 100px;
   width: 100%;
@@ -39,4 +43,24 @@
 .search-form__button:hover {
   opacity: .6;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .search-form {
+    margin: 70px 4px 10px;
+  }
+
+  .search-form__form {
+    padding: 6px 6px 6px 12px;
+  }
+  
+  .search-form__input {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .search-form__button {
+    max-width: 80px;
+    padding: 13px 0;
+  }
 }

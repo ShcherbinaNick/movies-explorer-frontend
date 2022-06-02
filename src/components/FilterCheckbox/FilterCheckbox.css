@@ -1,5 +1,5 @@
 .filter-checkbox {
-  margin: 26px 0 43px 0;
+  margin: 26px 0 43px;
   display: inline-flex;
   align-items: center;
   column-gap: 14px;
@@ -45,4 +45,18 @@
   margin: 0;
   font-size: 13px;
   line-height: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-checkbox {
+    margin: 26px 0 51px;
+    column-gap: 16px;
+  }  
+}
+
+@media screen and (max-width: 500px) {
+  .filter-checkbox {
+    margin: 30px 0 63px;
+    column-gap: 13px;
+  }
 }

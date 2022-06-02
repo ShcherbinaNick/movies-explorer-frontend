@@ -1,12 +1,17 @@
+.nav-tab {
+  margin: 151px 0 0 0;
+}
+
 .nav-tab__list {
   list-style-type: none;
-  margin: 151px 0 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
 }
 
 .nav-tab__list-item {
+  width: 96px; 
   margin-right: 10px;
 }
 
@@ -19,7 +24,7 @@
   color: #000000;
   background-color: #E8E8E8;
   display: block;
-  padding: 10px 17px;
+  padding: 10px;
   border-radius: 10px;
   font-weight: 500;
   font-size: 12px;
@@ -30,4 +35,27 @@
 .nav-tab__link:hover {
   opacity: .6;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-tab {
+    margin: 314px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .nav-tab {
+    margin: 212px 0 0 0;
+  }
+
+  .nav-tab__list-item {
+    width: 82px; 
+    margin-right: 6px;
+  }
+
+  .nav-tab__link {
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 10px;
+  }
 }
