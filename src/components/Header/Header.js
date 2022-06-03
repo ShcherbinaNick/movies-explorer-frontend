@@ -29,6 +29,7 @@ function Header() {
     if (location.pathname === '/movies' || location.pathname === '/saved-movies') {
       setIsLoggedIn(true)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
