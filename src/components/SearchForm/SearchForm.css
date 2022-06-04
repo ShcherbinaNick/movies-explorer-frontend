@@ -21,10 +21,6 @@
   line-height: 20px;
 }
 
-.search-form__input:focus {
-  outline: none;
-}
-
 .search-form__button {
   max-width: 100px;
   width: 100%;
