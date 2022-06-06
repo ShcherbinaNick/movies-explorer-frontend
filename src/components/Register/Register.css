@@ -1,0 +1,152 @@
+.register {
+  margin: 70px auto;
+  max-width: 396px;
+}
+
+.register__logo {
+  vertical-align: top;
+  margin-bottom: 40px;
+  width: 38px;
+  height: 38px;
+  transition: .4s all ease;
+}
+
+.register__logo:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.register__title {
+  margin: 0 0 40px 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.register__form {
+  margin-bottom: 65px;
+}
+
+.register__fieldset {
+  margin: 0 0 24px 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #A0A0A0;
+}
+
+.register__fieldset:last-of-type {
+  margin: 0;
+}
+
+.register__input-name {
+  margin: 0;
+}
+
+.register__input {
+  margin-top: 5px;
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 0 0 10px 0;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.register__input:focus {
+  outline: none;
+}
+
+.register__input_type_password {
+  color: #EE3465;
+}
+
+.register__input-error {
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.register__button {
+  width: 100%;
+  margin-top: 69px;
+  border: none;
+  padding: 14px 0;
+  color: #FFFFFF;
+  background-color: #FF6838;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  transition: .4s all ease;
+}
+
+.register__button:hover {
+  opacity: .7;
+}
+
+.register__auth {
+  margin: 16px 0 0;
+  text-align: center;
+  color: #A0A0A0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.register__link {
+  text-decoration: none;
+  color: #FF6838;
+  transition: .4s all ease;
+  margin-left: 6px;
+}
+
+.register__link:hover{
+  opacity: .6;
+  cursor: pointer;
+} 
+
+
+@media screen and (max-width: 768px) {
+  .register {
+    margin: 232px auto;
+  }  
+}
+
+@media screen and (max-width: 500px) {
+  .register {
+    margin: 56px 30px 30px;
+    text-align: center;
+  }
+
+  .register__title {
+    margin: 0 0 80px 0;
+  }
+
+  .register__form {
+    text-align: left;
+  }
+
+  .register__button {
+    margin-top: 157px;
+    padding: 15px 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .register__auth {
+    margin: 14px 0 0;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .register__link {
+    margin-left: 7px;
+  }
+}
