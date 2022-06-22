@@ -6,7 +6,9 @@ import Preloader from "../Preloader/Preloader";
 function MoviesCardList(props) {
 
   const location = useLocation();
-  const [isPathSavedMovies, setIsPathSavedMovies] = useState(false);
+
+  const [ isPathSavedMovies, setIsPathSavedMovies ] = useState(false);
+  
   const [ isLoading, setIsloading ] = useState(true);
 
   React.useEffect(() => {
@@ -25,10 +27,10 @@ function MoviesCardList(props) {
     isLoading ? <Preloader /> : (
     <section className="movies-card-list">
       <ul className="movies-card-list__grid">
-      {props.moviesCard.map((card) => (
+      {props.moviesData.map((movie) => (
           <MoviesCard
-            key={card.id}
-            moviesCard={card}
+            key={movie.id}
+            movieData={movie}
           />
         ))}
       </ul>

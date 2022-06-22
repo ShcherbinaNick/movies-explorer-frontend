@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { getTimeFromDuration } from "../../utils/getTimeFromDuration";
 
-function MoviesCard({moviesCard}) {
+function MoviesCard({ movieData }) {
 
   const location = useLocation();
-  const [isPathSavedMovies, setIsPathSavedMovies] = useState(false);
+
+  const [ isPathSavedMovies, setIsPathSavedMovies ] = useState(false);
 
   React.useEffect(() => {
     if (location.pathname === '/saved-movies') {
@@ -12,11 +14,19 @@ function MoviesCard({moviesCard}) {
     }
   }, [location.pathname]);
 
+  const formatDuration = (duration) => {
+    return getTimeFromDuration(duration)
+  };
+
   return (
     <li className="movies-card">
-      <img src={ moviesCard.image } alt="скриншот фильма" className="movies-card__image" />
+      <div className="movies-card__image-container">
+        <div className="movies-card__image-wrap">
+          <img src={`https://api.nomoreparties.co${movieData.image.url}`} alt="скриншот фильма" className="movies-card__image" />
+        </div>
+      </div>
       <div className="movies-card__text">
-        <h2 className="movies-card__name">{moviesCard.nameRU}</h2>
+        <h2 className="movies-card__name">{movieData.nameRU}</h2>
           { isPathSavedMovies ? 
             <>
               <button className="movies-card__button movies-card__button_type_delete" type="button" aria-label="удалить"></button>
@@ -24,7 +34,7 @@ function MoviesCard({moviesCard}) {
           : 
             <>
               <button className={
-                moviesCard.isSaved ?
+                movieData.isSaved ?
                 "movies-card__button movies-card__button_type_liked"
               :
                 "movies-card__button movies-card__button_type_disliked"
@@ -32,7 +42,7 @@ function MoviesCard({moviesCard}) {
             </>
           }
       </div>
-      <p className="movies-card__length">{moviesCard.duration}</p>
+      <p className="movies-card__length">{formatDuration(movieData.duration)}</p>
     </li>
   );
 }

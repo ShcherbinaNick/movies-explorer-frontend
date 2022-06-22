@@ -6,7 +6,7 @@ function SavedMovies(props) {
   return(
     <section className="saved-movies">
       <SearchForm />
-      <MoviesCardList moviesCard={props.moviesCard} />
+      <MoviesCardList moviesData={props.moviesData} />
     </section>
   )
 }

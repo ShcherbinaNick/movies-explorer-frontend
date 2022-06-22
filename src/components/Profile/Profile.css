@@ -68,14 +68,14 @@
   border: none;
   padding: 0;
   background-color: #FFFFFF;
-  transition: .4s all ease;
   font-size: 13px;
   line-height: 16px;
+  transition: .4s all ease;
+  cursor: pointer;
 }
 
 .profile__button:hover {
   opacity: .6;
-  cursor: pointer;
 }
 
 .profile__button_type_edit {
@@ -85,6 +85,11 @@
 .profile__button_type_logout {
   font-weight: 500;
   color: #EE3465;
+}
+
+.profile__button_disabled {
+  color: #A0A0A0;
+  cursor: auto;
 }
 
 @media screen and (max-width: 768px) {
