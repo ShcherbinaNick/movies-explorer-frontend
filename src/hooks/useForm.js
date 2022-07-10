@@ -1,15 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
 
-//хук управления формой
+// хук управления формой
 function useForm() {
 
-  const [ name, setName ] = React.useState('');
-  const [ email, setEmail ] = React.useState('');
-  const [ password, setPassword ] = React.useState('');
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
 
-  const [ nameError, setNameError ] = React.useState('');
-  const [ emailError, setEmailError ] = React.useState('');
-  const [ passwordError, setPasswordError ] = React.useState('');
+  const [ nameError, setNameError ] = useState('');
+  const [ emailError, setEmailError ] = useState('');
+  const [ passwordError, setPasswordError ] = useState('');
 
   const handleNameChange = (e) => {
     const regExName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(

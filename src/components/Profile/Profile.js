@@ -19,6 +19,7 @@ function Profile({ onLogout, onUpdateProfile }) {
 
   const signout = async () => {
     await logout();
+    localStorage.clear();
     onLogout(false);
     history.push('/signin')
   }

@@ -5,7 +5,10 @@ class MainApi {
   }
 
   _onResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res);
   }
 
   getUserInfo() {
@@ -38,6 +41,7 @@ class MainApi {
       body: JSON.stringify(movie)
     })
     .then(this._onResponse)
+
   }
 
   deleteMovie(movieId) {
@@ -51,13 +55,12 @@ class MainApi {
 
   getMyMovies() {
     return fetch(`${this._url}/movies`, {
-      /* method: 'GET' ? */
+      method: 'GET',
       credentials: 'include',
       headers: this._headers,
     })
     .then(this._onResponse)
   }
-
 
 }
 

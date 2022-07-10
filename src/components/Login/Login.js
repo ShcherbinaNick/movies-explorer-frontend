@@ -1,18 +1,18 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import logo from '../../images/logo.svg';
 
-function Login({ onSubmit }) {
+function Login({ onSubmit, isLoading }) {
 
-  const [ isValid, setIsValid ] = React.useState(false);
+  const [ isValid, setIsValid ] = useState(false);
 
   const { 
     email, handleEmailChange, emailError,
     password, handlePasswordChange, passwordError,
    } = useForm();
 
-   React.useEffect(() => {
+   useEffect(() => {
     if (email && password &&
         !emailError && !passwordError
     ) {
@@ -60,7 +60,7 @@ function Login({ onSubmit }) {
             name="login-password" 
             placeholder="Введите ваш пароль здесь" 
             required 
-            value={ password } 
+            value={ password  || '' } 
             onChange={ handlePasswordChange }
           />
           <span className="login__input-error">{ passwordError }</span>
@@ -71,7 +71,7 @@ function Login({ onSubmit }) {
         type="submit"
         onClick={ handleSubmit } 
       >
-        Войти
+        { isLoading ? 'Вход...' : 'Войти' }
       </button>
       <p className="login__auth">
         Ещё не зарегистрированы?

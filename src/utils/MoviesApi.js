@@ -5,7 +5,10 @@ class MoviesApi {
   }
 
   _onResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res);
   }
 
   getBeatfilmMovies() {

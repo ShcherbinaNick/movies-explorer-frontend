@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import logo from '../../images/logo.svg'
 
-function Register({ onSubmit }) {
+function Register({ onSubmit, isLoading }) {
 
-  const [ isValid, setIsValid ] = React.useState(false);
+  const [ isValid, setIsValid ] = useState(false);
 
   const { 
     name, handleNameChange, nameError,
@@ -14,7 +14,7 @@ function Register({ onSubmit }) {
    } = useForm();
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (name && email && password &&
         !nameError && !emailError && !passwordError
     ) {
@@ -71,7 +71,7 @@ function Register({ onSubmit }) {
         <fieldset className="register__fieldset">
           <p className="register__input-name">Пароль</p>
           <input 
-            value={ password } 
+            value={ password || '' } 
             onChange={ handlePasswordChange }
             className="register__input register__input_type_password" 
             id="register-password" 
@@ -88,7 +88,7 @@ function Register({ onSubmit }) {
         type="submit"
         onClick={ handleSubmit }
       >
-        Зарегистрироваться
+        { isLoading ? 'Регистрация...' : 'Зарегистрироваться' }
       </button>
       <p className="register__auth">
         Уже зарегистрированы?

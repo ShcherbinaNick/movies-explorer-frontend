@@ -17,10 +17,14 @@ function MoviesCard({ movieData }) {
   const formatDuration = (duration) => {
     return getTimeFromDuration(duration)
   };
+  
+  const onTrailerLink = () => {
+    window.open(movieData.trailerLink, '_blank')
+  }
 
   return (
     <li className="movies-card">
-      <div className="movies-card__image-container">
+      <div className="movies-card__image-container" onClick={ onTrailerLink }>
         <div className="movies-card__image-wrap">
           <img src={`https://api.nomoreparties.co${movieData.image.url}`} alt="скриншот фильма" className="movies-card__image" />
         </div>
@@ -35,10 +39,14 @@ function MoviesCard({ movieData }) {
             <>
               <button className={
                 movieData.isSaved ?
-                "movies-card__button movies-card__button_type_liked"
-              :
-                "movies-card__button movies-card__button_type_disliked"
-              } type="button" aria-label="поставить лайк"></button>
+                  "movies-card__button movies-card__button_type_liked"
+                :
+                  "movies-card__button movies-card__button_type_disliked"
+              } 
+                type="button" 
+                aria-label="поставить лайк"
+              >
+              </button>
             </>
           }
       </div>

@@ -1,11 +1,12 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 const InfoTooltip = ({ isOpen, infoTooltipText, onClose }) => {
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
         onClose(false);
     }, 5000);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
   return (

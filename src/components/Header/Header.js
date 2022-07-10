@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../../images/logo.svg';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Menu from '../Menu/Menu';
 
-function Header() {
+function Header({ isLoggedIn }) {
   
-  const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isMenuActive, setIsMenuActive] = useState(false);
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [ isMenuActive, setIsMenuActive ] = useState(false);
+
+  const [ width, setWidth ] = useState(window.innerWidth);
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   });
@@ -24,13 +23,6 @@ function Header() {
   function handleMenuClick() {
     setIsMenuActive(!isMenuActive)
   }
-
-  React.useEffect(() => {
-    if (location.pathname === '/movies' || location.pathname === '/saved-movies') {
-      setIsLoggedIn(true)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <header className="header">
