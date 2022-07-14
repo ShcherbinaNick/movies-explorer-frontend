@@ -128,11 +128,6 @@ function App() {
     })
   }
 
-  useEffect(() => {
-    checkToken();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   // Поиск по всем фильмам
  
   const handleMoviesSearchFormSubmit = () => {
@@ -203,6 +198,11 @@ function App() {
   };
 
   // Получение данных пользователя
+
+  useEffect(() => {
+    checkToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (isLoggedIn) {

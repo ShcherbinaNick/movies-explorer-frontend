@@ -1,5 +1,5 @@
 export const
-  MAIN_BASE_URL = 'http://nick-diploma.nomoredomains.work',
+  MAIN_BASE_URL = 'https://api.nick-diploma.nomoredomains.work',
   MOVIES_BASE_URL = 'https://api.nomoreparties.co/beatfilm-movies',
 
   DESKTOP_RESOLUTION = 768,
