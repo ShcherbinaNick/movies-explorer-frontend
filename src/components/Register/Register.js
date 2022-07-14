@@ -87,6 +87,7 @@ function Register({ onSubmit, isLoading }) {
         className={ `register__button ${!isValid ? "register__button_disabled" : ""}` }
         type="submit"
         onClick={ handleSubmit }
+        disabled={ !isValid }
       >
         { isLoading ? 'Регистрация...' : 'Зарегистрироваться' }
       </button>

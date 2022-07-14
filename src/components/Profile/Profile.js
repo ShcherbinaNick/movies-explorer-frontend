@@ -21,18 +21,21 @@ function Profile({ onLogout, onUpdateProfile }) {
     await logout();
     localStorage.clear();
     onLogout(false);
-    history.push('/signin')
+    history.push('/signin');
   }
 
   React.useEffect(() => {
-  if (name && email &&
-      !nameError && !emailError
+  if (
+    name && email &&
+    !nameError && !emailError && 
+    currentUser.name !== name && 
+    currentUser.email !== email
   ) {
     setIsValid(true);
   } else {
     setIsValid(false);
   }
-}, [ name, nameError, email, emailError])
+}, [ name, nameError, email, emailError, currentUser.name, currentUser.email ])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,6 +81,7 @@ function Profile({ onLogout, onUpdateProfile }) {
           className={`profile__button profile__button_type_edit ${isValid ? '' : "profile__button_disabled" } ` }
           type="button"
           onClick={ handleSubmit }
+          disabled={ !isValid }
         >
           Редактировать
         </button>

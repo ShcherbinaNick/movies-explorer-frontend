@@ -1,4 +1,6 @@
-export const BASE_URL = 'http://localhost:3000';
+import { MAIN_BASE_URL } from "./constants";
+
+export const BASE_URL = MAIN_BASE_URL;
 
 export const register = (userData) => {
   return fetch(`${BASE_URL}/signup`, {

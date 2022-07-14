@@ -70,6 +70,7 @@ function Login({ onSubmit, isLoading }) {
         className={ `login__button ${!isValid ? "login__button_disabled" : ""}` }
         type="submit"
         onClick={ handleSubmit } 
+        disabled={ !isValid }
       >
         { isLoading ? 'Вход...' : 'Войти' }
       </button>

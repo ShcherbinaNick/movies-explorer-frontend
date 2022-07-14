@@ -1,3 +1,5 @@
+import { MAIN_BASE_URL } from "./constants";
+
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._url = baseUrl;
@@ -34,11 +36,26 @@ class MainApi {
   }
 
   saveMovie(movie) {
+
+    const savedMovie = {
+      movieId: movie.id || movie.movieId,
+      nameRU: movie.nameRU || 'Неизвестное название',
+      nameEN: movie.nameEN || 'Неизвестное название',
+      director: movie.director || 'Неизвестный режиссёр',
+      country: movie.country || 'Неизвестная страна',
+      description: movie.description || 'Неизвестное описание',
+      duration: movie.duration || 'Неизвестная длительность',
+      image: `https://api.nomoreparties.co/${movie.image.url}` || 'Изображение отсутствует',
+      thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}` || 'Изображение отсутствует',
+      trailerLink: movie.trailerLink || 'Трейлер отсутствует',
+      year: movie.year || 'Неизвестный год',
+    }
+
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(movie)
+      body: JSON.stringify(savedMovie)
     })
     .then(this._onResponse)
 
@@ -66,7 +83,7 @@ class MainApi {
 
 
 const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: MAIN_BASE_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
