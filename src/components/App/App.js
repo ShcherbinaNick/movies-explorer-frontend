@@ -59,7 +59,6 @@ function App() {
     auth.register(values)
     .then((res) => {
       setIsLoggedIn(true);
-      setCurrentUser(values);
       setIsInfoTooltipOpen(true);
       setInfoTooltipText('Регистрация успешна!');
       history.push('/movies');
