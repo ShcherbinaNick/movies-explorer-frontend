@@ -3,8 +3,8 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 
 function SavedMovies({
-  moviesData, isLoading, savedMoviesData, handleDeleteMovie,
-  searchQuery, setSearchQuery, isCheckboxChecked, setIsCheckboxChecked, handleSavedMoviesSearchFormSubmit,
+  moviesData, isLoading, savedMoviesData, handleDeleteMovie, isSavedMoviesFound,
+  searchQuery, setSearchQuery, isShortMoviesCheckboxChecked, setIsShortMoviesCheckboxChecked, handleSavedMoviesSearchFormSubmit,
   }) {
 
   return(
@@ -12,8 +12,8 @@ function SavedMovies({
       <SearchForm
         searchQuery={ searchQuery }
         setSearchQuery={ setSearchQuery }
-        isCheckboxChecked={ isCheckboxChecked }
-        setIsCheckboxChecked={ setIsCheckboxChecked }
+        isCheckboxChecked={ isShortMoviesCheckboxChecked }
+        setIsCheckboxChecked={ setIsShortMoviesCheckboxChecked }
         handleSearchFormSubmit={ handleSavedMoviesSearchFormSubmit }
       />
       <MoviesCardList
@@ -22,6 +22,7 @@ function SavedMovies({
         isLoading={ isLoading }
         savedMoviesData={ savedMoviesData }
         handleDeleteMovie={ handleDeleteMovie }
+        isMoviesFound={ isSavedMoviesFound }
       />
     </section>
   )

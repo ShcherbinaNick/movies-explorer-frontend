@@ -3,7 +3,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from "../SearchForm/SearchForm";
 
 function Movies({
-  filteredMovies, isLoading, searchQuery, setSearchQuery,
+  filteredMovies, isLoading, searchQuery, setSearchQuery, isMoviesFound,
   isCheckboxChecked, setIsCheckboxChecked, handleSaveMovie, handleDeleteMovie, savedMoviesData, handleMoviesSearchFormSubmit
   }) {
 
@@ -23,6 +23,7 @@ function Movies({
         handleSaveMovie={ handleSaveMovie }
         handleDeleteMovie={handleDeleteMovie}
         savedMoviesData={ savedMoviesData }
+        isMoviesFound={ isMoviesFound }
         />
     </section>
   )

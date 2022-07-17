@@ -14,7 +14,7 @@ function FilterCheckBox({ isCheckboxChecked, setIsCheckboxChecked }) {
         id="saved" 
         onInput={ handleFilterSubmit }
         value={ isCheckboxChecked }
-        defaultChecked={ isCheckboxChecked}
+        defaultChecked={ isCheckboxChecked }
       />
       <span className="filter-checkbox__switch"></span>
       <p className="filter-checkbox__text">Короткометражки</p>

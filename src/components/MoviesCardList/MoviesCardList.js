@@ -12,6 +12,7 @@ function MoviesCardList({
     handleSaveMovie,
     savedMoviesData,
     handleDeleteMovie,
+    isMoviesFound
   }) {
 
   const location = useLocation()
@@ -57,7 +58,7 @@ function MoviesCardList({
   return (
     isLoading ? <Preloader /> : (
     <section className="movies-card-list">
-      { moviesData.length === 0  ? <p>Ничего не найдено</p> : '' }
+      { !isMoviesFound ? <p>Ничего не найдено</p> : '' }
       { !moviesData || !savedMoviesData ?
         <p>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p> : '' }
       <ul className="movies-card-list__grid">
@@ -66,7 +67,7 @@ function MoviesCardList({
         .slice(0, renderedCards)
         .map((movie) => (
           <MoviesCard
-            key={ movie.id || movie.movieId}
+            key={ movie.id || movie.movieId }
             movieData={ movie }
             handleSaveMovie={ handleSaveMovie }
             handleDeleteMovie={ handleDeleteMovie }

@@ -1,6 +1,4 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { logout } from "../../utils/auth";
+import React, { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useForm from "../../hooks/useForm";
 
@@ -8,34 +6,24 @@ function Profile({ onLogout, onUpdateProfile }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const history = useHistory();
-
-  const [ isValid, setIsValid ] = React.useState(false);
+  const [ isValid, setIsValid ] = useState(false);
 
   const { 
-    name, handleNameChange, nameError,
-    email, handleEmailChange, emailError,
-   } = useForm();
+    name, handleNameChange, nameError, setName,
+    email, handleEmailChange, emailError, setEmail
+  } = useForm();
 
-  const signout = async () => {
-    await logout();
-    localStorage.clear();
-    onLogout(false);
-    history.push('/signin');
-  }
-
-  React.useEffect(() => {
+  useEffect(() => {
   if (
-    name && email &&
-    !nameError && !emailError && 
-    currentUser.name !== name && 
-    currentUser.email !== email
+    (name && !nameError) &&
+    (email && !emailError) &&
+    ((currentUser.name !== name) || (currentUser.email !== email))
   ) {
     setIsValid(true);
   } else {
     setIsValid(false);
   }
-}, [ name, nameError, email, emailError, currentUser.name, currentUser.email ])
+}, [ name, nameError, email, emailError, currentUser ])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +32,12 @@ function Profile({ onLogout, onUpdateProfile }) {
       email: email
     })
   }
+
+  useEffect(() => {
+    setName(currentUser.name)
+    setEmail(currentUser.email)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ currentUser ])
 
   return(
     <section className="profile">
@@ -56,9 +50,9 @@ function Profile({ onLogout, onUpdateProfile }) {
             id="profile-name" 
             type="text" 
             name="profile-name" 
-            placeholder={ currentUser.name } 
             required
-            value={ name }
+            value={ name || ''}
+            placeholder="Имя"
             onChange={ handleNameChange }
           />
         </fieldset>
@@ -69,9 +63,9 @@ function Profile({ onLogout, onUpdateProfile }) {
             id="profile-email" 
             type="email" 
             name="profile-email" 
-            placeholder={ currentUser.email } 
             required
-            value={ email }
+            value={ email || '' }
+            placeholder="E-mail"
             onChange={ handleEmailChange }
           />
         </fieldset>
@@ -88,7 +82,7 @@ function Profile({ onLogout, onUpdateProfile }) {
         <button 
           className="profile__button profile__button_type_logout" 
           type="button"
-          onClick={ signout }
+          onClick={ onLogout }
         >
           Выйти из аккаунта
         </button>

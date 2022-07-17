@@ -26,7 +26,6 @@ function App() {
 
   const [ currentUser, setCurrentUser ] = useState({});
 
-  // eslint-disable-next-line no-unused-vars
   const [ movies, setMovies ] = useState([]);
 
   const [ savedMovies, setSavedMovies ] = useState([]);
@@ -47,12 +46,20 @@ function App() {
 
   const [ isCheckboxChecked, setIsCheckboxChecked ] = useState(false);
 
+  const [ isShortMoviesCheckboxChecked, setIsShortMoviesCheckboxChecked ] = useState(false);
+
+  const [ isMoviesFound, setIsMoviesFound ] = useState(true);
+
+  const [ isSavedMoviesFound, setIsSavedMoviesFound ] = useState(true);
+
   // Регистрация
 
   const handleRegistration = (values) => {
     setIsLoading(true);
     auth.register(values)
     .then((res) => {
+      setIsLoggedIn(true);
+      setCurrentUser(values);
       setIsInfoTooltipOpen(true);
       setInfoTooltipText('Регистрация успешна!');
       history.push('/movies');
@@ -116,8 +123,13 @@ function App() {
     auth.checkAuth()
     .then((res) => {
       if (res) {
+        setCurrentUser(res);
         setIsLoggedIn(true);
-        history.push(path)
+        if (path === '/signin' || path === '/signup') {
+          history.push('/movies')
+        } else {
+          history.push(path)
+        }
       }
     })
     .catch((err) => {
@@ -128,6 +140,24 @@ function App() {
     })
   }
 
+  // Проверка фильмов на наличие
+
+  const isFilmsFound = (filtrationResult) => {
+    if (filtrationResult.length === 0) {
+      setIsMoviesFound(false);
+    } else {
+      setIsMoviesFound(true);
+    }
+  }
+
+  const isSavedFilmsFound = (filtrationResult) => {
+    if (filtrationResult.length === 0) {
+      setIsSavedMoviesFound(false);
+    } else {
+      setIsSavedMoviesFound(true);
+    }
+  }
+
   // Поиск по всем фильмам
  
   const handleMoviesSearchFormSubmit = () => {
@@ -136,28 +166,22 @@ function App() {
       setInfoTooltipText('Нужно ввести ключевое слово')
     } else {
       setIsLoading(true);
-      moviesApi.getBeatfilmMovies()
-      .then((res) => {
-        setMovies(res);
-        const filtrationResult = filterMovies(res, searchQuery, isCheckboxChecked);
-          setFilteredMovies(filtrationResult);
-          localStorage.setItem('filtrationResult', JSON.stringify(filtrationResult));
-          localStorage.setItem('savedQuery',searchQuery);
-          localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
-          setIsLoading(false);
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        setIsLoading(false);
-      })
+      const filtrationResult = filterMovies(movies, searchQuery, isCheckboxChecked);
+      setFilteredMovies(filtrationResult);
+      isFilmsFound(filtrationResult);
+      localStorage.setItem('filtrationResult', JSON.stringify(filtrationResult));
+      localStorage.setItem('savedQuery',searchQuery);
+      localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
+      setIsLoading(false);
     }
   }
 
   // Поиск по сохранённым фильмам
 
   const handleSavedMoviesSearchFormSubmit = () => {
-    const filtrationResult = filterMovies(savedMovies, searchQuery, isCheckboxChecked);
+    const filtrationResult = filterMovies(savedMovies, searchQuery, isShortMoviesCheckboxChecked);
     setFilteredSavedMovies(filtrationResult);
+    isSavedFilmsFound(filtrationResult);
   }
 
   // Сохранение и удаление фильмов
@@ -175,7 +199,11 @@ function App() {
     .then(() => {
       getSavedMovies();
     })
-    .catch(err => console.log(err))
+    .catch((err) => {
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText('Не удалось сохранить карточку');
+      console.log(err)
+    })
   }
 
   const handleDeleteMovie = (movie, isOnSavedPage) => {
@@ -188,7 +216,11 @@ function App() {
       const updatedSavedMovies = savedMovies.filter((movie) => movie.movieId !== correctId);
       setSavedMovies(updatedSavedMovies);
     })
-    .catch(err => console.log(err));
+    .catch((err) => {
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText('Не удалось удалить карточку');
+      console.log(err)
+    });
   }
 
   // Закрытие тултипа
@@ -207,9 +239,11 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       setIsLoading(true);
-      mainApi.getUserInfo()
-        .then((currentUser) => {
+      Promise.all([ mainApi.getUserInfo(), moviesApi.getBeatfilmMovies(), mainApi.getMyMovies() ])
+        .then(([currentUser, allMovies, currentUserMovies]) => {
           setCurrentUser(currentUser);
+          setMovies(allMovies);
+          setSavedMovies(currentUserMovies);
           setIsLoading(false);
         })
         .catch(err => console.log(err))
@@ -218,23 +252,6 @@ function App() {
         })
       }
     }, [ isLoggedIn ])
-  
-  // Получение сохраненных фильмов
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoading(true);
-      mainApi.getMyMovies()
-      .then((res) => {
-        setSavedMovies(res)
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        setIsLoading(false);
-      })
-    }
-  }, [ isLoggedIn ])
-
 
   useEffect(() => {
       if (isLoggedIn) {
@@ -243,19 +260,36 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ savedMovies ])
 
+  // Выход из аккаунта и очистка 
+
+  const signout = async () => {
+    localStorage.clear();
+    setMovies([]);
+    setSavedMovies([]);
+    setFilteredMovies([]);
+    setFilteredSavedMovies([]);
+    setSearchQuery('');
+    setIsCheckboxChecked(false);
+    setIsLoggedIn(false);
+    await auth.logout();
+    history.push('/');
+  }
+
   // Локальное хранилище (результаты последнего запроса)
 
   useEffect(() => {
-    if (localStorage.getItem('filtrationResult')) {
-      setFilteredMovies(JSON.parse(localStorage.getItem('filtrationResult')))
+    if (isLoggedIn) {
+      if (localStorage.getItem('filtrationResult')) {
+        setFilteredMovies(JSON.parse(localStorage.getItem('filtrationResult')))
+      }
+      if (localStorage.getItem('savedQuery')) {
+        setSearchQuery(localStorage.getItem('savedQuery'))
+      }
+      if (localStorage.getItem('checkboxState')) {
+        setIsCheckboxChecked(JSON.parse(localStorage.getItem('checkboxState')))
+      }
     }
-    if (localStorage.getItem('savedQuery')) {
-      setSearchQuery(localStorage.getItem('savedQuery'))
-    }
-    if (localStorage.getItem('checkboxState')) {
-      setIsCheckboxChecked(JSON.parse(localStorage.getItem('checkboxState')))
-    }
-  }, [ setFilteredMovies, setSearchQuery, setIsCheckboxChecked ])
+  }, [ isLoggedIn ])
 
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -294,6 +328,7 @@ function App() {
             handleDeleteMovie={ handleDeleteMovie }
             savedMoviesData={ savedMovies }
             handleMoviesSearchFormSubmit={ handleMoviesSearchFormSubmit }
+            isMoviesFound={ isMoviesFound }
           />
           <ProtectedRoute
             exact
@@ -306,16 +341,17 @@ function App() {
             handleDeleteMovie={ handleDeleteMovie }
             searchQuery={ searchQuery }
             setSearchQuery={ setSearchQuery }
-            isCheckboxChecked={ isCheckboxChecked }
-            setIsCheckboxChecked={ setIsCheckboxChecked }
+            isShortMoviesCheckboxChecked={ isShortMoviesCheckboxChecked }
+            setIsShortMoviesCheckboxChecked={ setIsShortMoviesCheckboxChecked }
             handleSavedMoviesSearchFormSubmit={ handleSavedMoviesSearchFormSubmit }
+            isSavedMoviesFound={ isSavedMoviesFound }
             />
           <ProtectedRoute
             exact
             path='/profile'
             component={ Profile }
             loggedIn={ isLoggedIn }
-            onLogout={ setIsLoggedIn }
+            onLogout={ signout }
             onUpdateProfile={ handleUpdateUser }
           />
           <Route path='*'>
