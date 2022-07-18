@@ -10,11 +10,11 @@ export const register = (userData) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(userData)
-  }).then((res) => {
-    if (res.status === 201) {
-      return res.json()
+  }).then((response) => {
+    if (response.status === 201) {
+      return response.json()
     };
-    return Promise.reject(`Ошибка ${ res.status }`)
+    return Promise.reject(`Ошибка ${ response.status }`)
   })
 };
 
@@ -26,11 +26,11 @@ export const checkAuth = () => {
       'Content-Type': 'application/json',
     }
   })
-  .then((res) => {
-    if (res.status === 200) {
-      return res.json()
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json()
     }
-    return Promise.reject(`Ошибка ${ res.status }`)
+    return Promise.reject(`Ошибка ${ response.status }`)
   })
 }
 
@@ -42,11 +42,11 @@ export const login = (userData) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(userData)
-  }).then((res) => {
-    if (res.status === 200) {
-      return res.json()
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json()
     };
-    return Promise.reject(`Ошибка ${ res.status }`)
+    return Promise.reject(`Ошибка ${ response.status }`)
   })
 };
 
@@ -57,11 +57,11 @@ export const logout = () => {
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then((res) => {
-    if (res.status === 200) {
-      return res.json()
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json()
     }
-    return Promise.reject(`Вы вышли из учётной записи ${ res.status }`)
+    return Promise.reject(`Вы вышли из учётной записи ${ response.status }`)
   })
 }
 
