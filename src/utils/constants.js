@@ -1,0 +1,14 @@
+export const
+  MAIN_BASE_URL = 'https://api.nick-diploma.nomoredomains.work',
+  MOVIES_BASE_URL = 'https://api.nomoreparties.co/beatfilm-movies',
+
+  DESKTOP_RESOLUTION = 768,
+  MOBILE_RESOLUTION = 480,
+  RENDERED_CARDS_DESKTOP = 12,
+  ADDED_RENDERED_CARDS_DESKTOP = 3,
+  RENDERED_CARDS_TABLET = 8,
+  ADDED_RENDERED_CARDS_TABLET = 2,
+  RENDERED_CARDS_MOBILE = 5,
+  ADDED_RENDERED_CARDS_MOBILE = 2,
+
+  SHORT_MOVIE_DURATION = 41;

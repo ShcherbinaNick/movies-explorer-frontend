@@ -58,6 +58,7 @@
 
 .register__input:focus {
   outline: none;
+  border-bottom: 1px solid #FF6838;
 }
 
 .register__input_type_password {
@@ -89,6 +90,15 @@
 
 .register__button:hover {
   opacity: .7;
+}
+
+.register__button_disabled {
+  background-color: #A0A0A0;
+  cursor: auto;
+}
+
+.register__button_disabled:hover {
+  opacity: 1;
 }
 
 .register__auth {
