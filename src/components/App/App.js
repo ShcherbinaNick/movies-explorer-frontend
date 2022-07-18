@@ -51,30 +51,9 @@ function App() {
   const [ isMoviesFound, setIsMoviesFound ] = useState(true);
 
   const [ isSavedMoviesFound, setIsSavedMoviesFound ] = useState(true);
-
-  // Регистрация
-
-  const handleRegistration = (values) => {
-    setIsLoading(true);
-    auth.register(values)
-    .then((res) => {
-      setIsLoggedIn(true);
-      setIsInfoTooltipOpen(true);
-      setInfoTooltipText('Регистрация успешна!');
-      history.push('/movies');
-    })
-    .catch((err) => {
-      console.log(err);
-      setIsInfoTooltipOpen(true);
-      setInfoTooltipText(`Не удалось зарегистрироваться: ${ err }`);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    })
-  }
-
+  
   // Вход
-
+  
   const handleLogin = (values) => {
     setIsLoading(true);
     auth.login(values)
@@ -82,18 +61,45 @@ function App() {
       setIsLoggedIn(true);
       setIsInfoTooltipOpen(true);
       setInfoTooltipText('Авторизация пройдена!');
+      autoCloseInfoTooltip();
       history.push('/movies');
     })
     .catch((err) => {
       console.log(err);
       setIsInfoTooltipOpen(true);
       setInfoTooltipText(`Не удалось авторизоваться, проверьте правильность ввода данных: ${ err }`);
+      autoCloseInfoTooltip();
     })
     .finally(() => {
       setIsLoading(false);
     })
   }
 
+  // Регистрация
+
+  const handleRegistration = (values) => {
+    setIsLoading(true);
+    auth.register(values)
+    .then(() => {
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText('Регистрация успешна!');
+      autoCloseInfoTooltip();
+    })
+    .then(() => {
+      const {email, password} = values;
+      handleLogin({email, password});
+    })
+    .catch((err) => {
+      console.log(err);
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText(`Не удалось зарегистрироваться: ${ err }`);
+      autoCloseInfoTooltip();
+    })
+    .finally(() => {
+      setIsLoading(false);
+    })
+  }
+  
   // Обновление информации пользователя
 
   const handleUpdateUser = (newUserInfo) => {
@@ -103,27 +109,29 @@ function App() {
         setCurrentUser(newData);
         setIsInfoTooltipOpen(true);
         setInfoTooltipText('Информация о пользователе обновлена!');
+        autoCloseInfoTooltip();
         setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
         setIsInfoTooltipOpen(true);
         setInfoTooltipText(`Не удалось обновить информацию о пользователе: ${ err }`);
+        autoCloseInfoTooltip();
       })
       .finally(() => {
         setIsLoading(false);
       })
   }
 
-  // Функция проверки токена
+  // Функция проверки токена и защита от редиректа
 
   const checkToken = () => {
     const path = location.pathname;
     auth.checkAuth()
     .then((res) => {
       if (res) {
-        setCurrentUser(res);
         setIsLoggedIn(true);
+        setCurrentUser(res);
         if (path === '/signin' || path === '/signup') {
           history.push('/movies')
         } else {
@@ -136,8 +144,14 @@ function App() {
       setIsLoggedIn(false);
       setIsInfoTooltipOpen(true);
       setInfoTooltipText(`Кажется, вы не авторизованы: ${ err }`);
+      autoCloseInfoTooltip();
     })
   }
+
+  useEffect(() => {
+    checkToken(location.pathname);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Проверка фильмов на наличие
 
@@ -162,7 +176,8 @@ function App() {
   const handleMoviesSearchFormSubmit = () => {
     if (searchQuery.length === 0) {
       setIsInfoTooltipOpen(true);
-      setInfoTooltipText('Нужно ввести ключевое слово')
+      setInfoTooltipText('Нужно ввести ключевое слово');
+      autoCloseInfoTooltip();
     } else {
       setIsLoading(true);
       const filtrationResult = filterMovies(movies, searchQuery, isCheckboxChecked);
@@ -197,10 +212,14 @@ function App() {
     mainApi.saveMovie(movie)
     .then(() => {
       getSavedMovies();
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText('Карточка сохранена!');
+      autoCloseInfoTooltip();
     })
     .catch((err) => {
       setIsInfoTooltipOpen(true);
       setInfoTooltipText('Не удалось сохранить карточку');
+      autoCloseInfoTooltip();
       console.log(err)
     })
   }
@@ -214,10 +233,14 @@ function App() {
     .then(() => {
       const updatedSavedMovies = savedMovies.filter((movie) => movie.movieId !== correctId);
       setSavedMovies(updatedSavedMovies);
+      setIsInfoTooltipOpen(true);
+      setInfoTooltipText('Карточка удалена из сохраненных!');
+      autoCloseInfoTooltip();
     })
     .catch((err) => {
       setIsInfoTooltipOpen(true);
       setInfoTooltipText('Не удалось удалить карточку');
+      autoCloseInfoTooltip();
       console.log(err)
     });
   }
@@ -228,12 +251,13 @@ function App() {
     setIsInfoTooltipOpen(false);
   };
 
-  // Получение данных пользователя
+  const autoCloseInfoTooltip = () => {
+    setTimeout(() => {
+      setIsInfoTooltipOpen(false);
+    }, 2000);
+  }
 
-  useEffect(() => {
-    checkToken();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // Получение данных пользователя
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -243,7 +267,6 @@ function App() {
           setCurrentUser(currentUser);
           setMovies(allMovies);
           setSavedMovies(currentUserMovies);
-          setIsLoading(false);
         })
         .catch(err => console.log(err))
         .finally(() => {
@@ -261,7 +284,7 @@ function App() {
 
   // Выход из аккаунта и очистка 
 
-  const signout = async () => {
+  const signout = () => {
     localStorage.clear();
     setMovies([]);
     setSavedMovies([]);
@@ -270,7 +293,10 @@ function App() {
     setSearchQuery('');
     setIsCheckboxChecked(false);
     setIsLoggedIn(false);
-    await auth.logout();
+    setIsInfoTooltipOpen(true);
+    setInfoTooltipText('Будем ждать вас снова! :)');
+    autoCloseInfoTooltip();
+    auth.logout();
     history.push('/');
   }
 
